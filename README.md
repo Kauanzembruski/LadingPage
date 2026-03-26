@@ -1,8 +1,8 @@
-🎬 Landing Page - VideoMaker
+#🎬 Landing Page - VideoMaker
 
 Uma landing page moderna, responsiva e focada em conversão para apresentação de serviços de edição e produção de vídeos.
 
-🚀 Sobre o Projeto
+#🚀 Sobre o Projeto
 
 Esta landing page foi desenvolvida para videomakers que desejam apresentar seu portfólio, atrair clientes e destacar seus serviços de forma profissional.
 
@@ -22,7 +22,7 @@ CSS3 (Flexbox / Grid)
 JavaScript
 (Opcional) Integração com EmailJS ou API backend
 
-🎯 Objetivo
+#🎯 Objetivo
 
 Criar uma página de alta conversão para:
 
@@ -30,14 +30,14 @@ Captação de clientes
 Apresentação de serviços
 Exibição de portfólio
 Fortalecimento da marca pessoal
-📸 Preview
+#📸 Preview
 
 Adicione aqui prints ou GIFs do projeto:
 
 
 
 
-👨‍💻 Autor
+#👨‍💻 Autor
 
 Desenvolvido por [Kauan Zembruski]
 
