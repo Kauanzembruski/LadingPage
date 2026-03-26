@@ -42,7 +42,8 @@ O design é inspirado em plataformas de streaming, com foco em vídeos verticais
 ---
 # 📸 Preview
 
-**Link**
+
+
 # https://lading-page-pied.vercel.app
 
 <img width="1853" height="971" alt="image" src="https://github.com/user-attachments/assets/d9bc11f5-7907-4c8d-96db-072b68612f6f" />
