@@ -17,11 +17,15 @@ O design é inspirado em plataformas de streaming, com foco em vídeos verticais
 *🧑‍💼 Seção de portfólio profissional
 *🔗 Integração com redes sociais
 
+---
+
 **🛠️ Tecnologias Utilizadas**
 *HTML5
 *CSS3 (Flexbox / Grid)
 *JavaScript
 *(Opcional) Integração com EmailJS ou API backend
+
+---
 
 # 🎯 Objetivo
 
@@ -31,6 +35,8 @@ O design é inspirado em plataformas de streaming, com foco em vídeos verticais
 *Apresentação de serviços
 *Exibição de portfólio
 *Fortalecimento da marca pessoal
+
+---
 # 📸 Preview
 
 <img width="1853" height="971" alt="image" src="https://github.com/user-attachments/assets/d9bc11f5-7907-4c8d-96db-072b68612f6f" />
