@@ -1,0 +1,1471 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Israel Mugica - VideoMaker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@200;300;400;500&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <style>
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        :root {
+            --black: #0a0a0a;
+            --white: #f5f4f2;
+            --gray-dark: #1c1c1c;
+            --gray-mid: #3a3a3a6f;
+            --gray-light: #8a8a8a;
+            --gray-mist: #d4d2ce;
+            --accent: #c8b8a2;
+            --serif: 'Cormorant Garamond', Georgia, serif;
+            --sans: 'Montserrat', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth
+        }
+
+        body {
+            background: var(--black);
+            color: var(--white);
+            font-family: var(--sans);
+            font-weight: 300;
+            overflow-x: hidden;
+            cursor: crosshair
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 28px 60px;
+            background: linear-gradient(to bottom, rgba(10, 10, 10, .95) 0%, transparent 100%);
+            backdrop-filter: blur(2px)
+        }
+
+        .nav-logo {
+            font-family: var(--serif);
+            font-size: 1.5rem;
+            font-weight: 300;
+            letter-spacing: .12em;
+            color: var(--white);
+            text-decoration: none
+        }
+
+        .nav-logo span {
+            font-style: italic;
+            color: var(--accent)
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+            list-style: none
+        }
+
+        .nav-links a {
+            font-size: .65rem;
+            letter-spacing: .25em;
+            text-transform: uppercase;
+            color: var(--gray-mist);
+            text-decoration: none;
+            transition: color .3s
+        }
+
+        .nav-links a:hover {
+            color: var(--white)
+        }
+
+        .btn-orcamento {
+            font-size: .6rem !important;
+            letter-spacing: .3em !important;
+            text-transform: uppercase;
+            color: var(--black) !important;
+            background: var(--white);
+            padding: 10px 22px;
+            text-decoration: none;
+            transition: background .3s, color .3s !important;
+            display: inline-block;
+            cursor: crosshair
+        }
+
+        .btn-orcamento:hover {
+            background: var(--accent) !important;
+            color: var(--black) !important
+        }
+
+        .hero {
+            position: relative;
+            height: 100vh;
+            min-height: 700px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 0 60px;
+            overflow: hidden
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 70% 50%, rgba(200, 184, 162, .06) 0%, transparent 60%), linear-gradient(135deg, #0a0a0a 0%, #1c1c1c 100%)
+        }
+
+        .hero-grid {
+            position: absolute;
+            inset: 0;
+            background-image: linear-gradient(rgba(200, 184, 162, .04) 1px, transparent 1px), linear-gradient(90deg, rgba(200, 184, 162, .04) 1px, transparent 1px);
+            background-size: 80px 80px
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 700px
+        }
+
+        .hero-eyebrow {
+            font-size: .6rem;
+            letter-spacing: .4em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 24px;
+            opacity: 0;
+            animation: fadeUp 1s .3s forwards
+        }
+
+        .hero-title {
+            font-family: var(--serif);
+            font-size: clamp(4rem, 8vw, 8rem);
+            font-weight: 300;
+            line-height: .92;
+            letter-spacing: -.01em;
+            margin-bottom: 8px;
+            opacity: 0;
+            animation: fadeUp 1s .5s forwards
+        }
+
+        .hero-title em {
+            font-style: italic;
+            color: var(--accent)
+        }
+
+        .hero-subtitle {
+            font-family: var(--serif);
+            font-size: clamp(1.8rem, 3.5vw, 3.5rem);
+            font-weight: 300;
+            font-style: italic;
+            color: var(--gray-light);
+            margin-bottom: 48px;
+            opacity: 0;
+            animation: fadeUp 1s .7s forwards
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            flex-wrap: wrap;
+            opacity: 0;
+            animation: fadeUp 1s .9s forwards
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--white);
+            color: var(--black);
+            padding: 14px 32px;
+            font-family: var(--sans);
+            font-size: .62rem;
+            font-weight: 500;
+            letter-spacing: .3em;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: background .3s, color .3s, transform .3s;
+            cursor: crosshair;
+            border: none
+        }
+
+        .btn-primary:hover {
+            background: var(--accent);
+            transform: translateY(-2px)
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            border: 1px solid rgba(200, 184, 162, .4);
+            color: var(--gray-mist);
+            padding: 14px 32px;
+            font-family: var(--sans);
+            font-size: .62rem;
+            font-weight: 400;
+            letter-spacing: .3em;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: border-color .3s, color .3s, transform .3s;
+            cursor: crosshair
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent);
+            color: var(--white);
+            transform: translateY(-2px)
+        }
+
+        .hero-scroll {
+            position: absolute;
+            bottom: 48px;
+            left: 60px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            opacity: 0;
+            animation: fadeUp 1s 1.2s forwards
+        }
+
+        .scroll-line {
+            width: 48px;
+            height: 1px;
+            background: var(--accent)
+        }
+
+        .scroll-text {
+            font-size: .55rem;
+            letter-spacing: .35em;
+            text-transform: uppercase;
+            color: var(--gray-light)
+        }
+
+        .section-header {
+            padding: 80px 60px 48px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(200, 184, 162, .12)
+        }
+
+        .section-number {
+            font-family: var(--serif);
+            font-size: .7rem;
+            letter-spacing: .2em;
+            color: var(--accent)
+        }
+
+        .section-title {
+            font-family: var(--serif);
+            font-size: clamp(2.5rem, 5vw, 5rem);
+            font-weight: 300;
+            line-height: 1
+        }
+
+        .section-title em {
+            font-style: italic;
+            color: var(--gray-light)
+        }
+
+        .section-tag {
+            font-size: .58rem;
+            letter-spacing: .3em;
+            text-transform: uppercase;
+            color: var(--gray-light);
+            border: 1px solid var(--gray-mid);
+            padding: 6px 14px;
+            margin-bottom: 8px
+        }
+
+        .video-section {
+            background: var(--black)
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            padding: 16px 60px;
+        }
+
+        .video-card {
+            position: relative;
+            aspect-ratio: 9/16;
+            /* AGORA É VERTICAL */
+            background: var(--gray-dark);
+            overflow: hidden;
+            cursor: pointer;
+            max-height: 700px;
+        }
+
+        .video-card video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform .6s ease;
+            filter: brightness(.7) grayscale(.3)
+        }
+
+        .video-card:hover video {
+            transform: scale(1.04);
+            filter: brightness(.85) grayscale(0)
+        }
+
+        .video-card-overlay {
+            position: absolute;
+            inset: 0;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 16px;
+            background: linear-gradient(to top, rgba(0, 0, 0, .8), transparent 60%);
+        }
+
+        .video-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gray-dark);
+            position: relative;
+            overflow: hidden
+        }
+
+        .video-placeholder::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--gray-dark) 25%, transparent 25%) -20px 0, linear-gradient(225deg, var(--gray-dark) 25%, transparent 25%) -20px 0, linear-gradient(315deg, var(--gray-dark) 25%, transparent 25%), linear-gradient(45deg, var(--gray-dark) 25%, transparent 25%);
+            background-size: 40px 40px;
+            background-color: #141414;
+            opacity: .5
+        }
+
+        .play-icon {
+            position: relative;
+            z-index: 2;
+            width: 56px;
+            height: 56px;
+            border: 1px solid rgba(200, 184, 162, .5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: border-color .3s, transform .3s
+        }
+
+        .video-card:hover .play-icon {
+            border-color: var(--accent);
+            transform: scale(1.1)
+        }
+
+        .play-icon svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--accent);
+            margin-left: 3px
+        }
+
+        .video-label {
+            font-size: .58rem;
+            letter-spacing: .3em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 6px
+        }
+
+        .video-title {
+            font-family: var(--serif);
+            font-size: 1.3rem;
+            font-weight: 300;
+            color: var(--white)
+        }
+
+        .cta-strip {
+            background: var(--gray-dark);
+            padding: 64px 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-top: 1px solid rgba(200, 184, 162, .08);
+            border-bottom: 1px solid rgba(200, 184, 162, .08);
+            gap: 32px;
+            flex-wrap: wrap
+        }
+
+        .cta-strip-text {
+            font-family: var(--serif);
+            font-size: clamp(1.4rem, 2.5vw, 2.2rem);
+            font-weight: 300;
+            font-style: italic;
+            color: var(--gray-mist)
+        }
+
+        .cta-strip-text strong {
+            font-style: normal;
+            color: var(--white);
+            font-weight: 300
+        }
+
+        footer {
+            background: #050505;
+            padding: 80px 60px 40px;
+            border-top: 1px solid rgba(200, 184, 162, .12)
+        }
+
+        .footer-top {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 48px;
+            padding-bottom: 64px;
+            border-bottom: 1px solid rgba(200, 184, 162, .08);
+            margin-bottom: 40px
+        }
+
+        .footer-logo {
+            font-family: var(--serif);
+            font-size: 2.5rem;
+            font-weight: 300;
+            line-height: 1;
+            margin-bottom: 16px
+        }
+
+        .footer-logo em {
+            font-style: italic;
+            color: var(--accent);
+            display: block
+        }
+
+        .footer-tagline {
+            font-size: .6rem;
+            letter-spacing: .3em;
+            text-transform: uppercase;
+            color: var(--gray-light)
+        }
+
+        .footer-col-title {
+            font-size: .55rem;
+            letter-spacing: .4em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 24px
+        }
+
+        .footer-contact-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            margin-bottom: 20px
+        }
+
+        .footer-contact-label {
+            font-size: .5rem;
+            letter-spacing: .3em;
+            text-transform: uppercase;
+            color: var(--gray-light)
+        }
+
+        .footer-contact-value {
+            font-family: var(--serif);
+            font-size: 1.05rem;
+            font-weight: 300;
+            color: var(--gray-mist);
+            text-decoration: none;
+            transition: color .3s
+        }
+
+        .footer-contact-value:hover {
+            color: var(--accent)
+        }
+
+        .footer-social {
+            display: flex;
+            flex-direction: column;
+            gap: 16px
+        }
+
+        .footer-social-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
+            text-decoration: none;
+            color: var(--gray-mist);
+            font-size: .62rem;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            transition: color .3s
+        }
+
+        .footer-social-link:hover {
+            color: var(--accent)
+        }
+
+        .footer-social-link svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+            opacity: .6;
+            transition: opacity .3s
+        }
+
+        .footer-social-link:hover svg {
+            opacity: 1
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap
+        }
+
+        .footer-copy {
+            font-size: .52rem;
+            letter-spacing: .2em;
+            color: var(--gray-mid);
+            text-transform: uppercase
+        }
+
+        .footer-whatsapp-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: transparent;
+            border: 1px solid rgba(200, 184, 162, .3);
+            color: var(--gray-mist);
+            padding: 12px 24px;
+            font-size: .58rem;
+            letter-spacing: .25em;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all .3s;
+            cursor: crosshair
+        }
+
+        .footer-whatsapp-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent)
+        }
+
+        /* MODAL */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 999;
+            background: rgba(5, 5, 5, .92);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .4s ease
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: all
+        }
+
+        .modal {
+            background: var(--gray-dark);
+            border: 1px solid rgba(200, 184, 162, .15);
+            width: 100%;
+            max-width: 580px;
+            padding: 56px 48px 48px;
+            position: relative;
+            transform: translateY(24px);
+            transition: transform .4s ease;
+            max-height: 90vh;
+            overflow-y: auto
+        }
+
+        .modal-overlay.active .modal {
+            transform: translateY(0)
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 24px;
+            background: none;
+            border: none;
+            color: var(--gray-light);
+            font-size: 1.4rem;
+            cursor: crosshair;
+            line-height: 1;
+            transition: color .3s
+        }
+
+        .modal-close:hover {
+            color: var(--accent)
+        }
+
+        .modal-eyebrow {
+            font-size: .55rem;
+            letter-spacing: .4em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 12px
+        }
+
+        .modal-title {
+            font-family: var(--serif);
+            font-size: 2.2rem;
+            font-weight: 300;
+            line-height: 1.1;
+            margin-bottom: 36px;
+            color: var(--white)
+        }
+
+        .modal-title em {
+            font-style: italic;
+            color: var(--gray-light)
+        }
+
+        .form-group {
+            margin-bottom: 22px
+        }
+
+        .form-label {
+            display: block;
+            font-size: .52rem;
+            letter-spacing: .35em;
+            text-transform: uppercase;
+            color: var(--gray-light);
+            margin-bottom: 8px
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            background: rgba(255, 255, 255, .04);
+            border: 1px solid rgba(200, 184, 162, .18);
+            color: var(--white);
+            font-family: var(--sans);
+            font-size: .82rem;
+            font-weight: 300;
+            padding: 13px 16px;
+            outline: none;
+            transition: border-color .3s;
+            appearance: none;
+            cursor: crosshair
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            border-color: var(--accent)
+        }
+
+        .form-input::placeholder,
+        .form-textarea::placeholder {
+            color: var(--gray-mid)
+        }
+
+        .form-select option {
+            background: var(--gray-dark);
+            color: var(--white)
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 88px
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px
+        }
+
+        .btn-submit {
+            width: 100%;
+            background: var(--white);
+            color: var(--black);
+            border: none;
+            font-family: var(--sans);
+            font-size: .62rem;
+            font-weight: 500;
+            letter-spacing: .3em;
+            text-transform: uppercase;
+            padding: 16px;
+            cursor: crosshair;
+            margin-top: 8px;
+            transition: background .3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px
+        }
+
+        .btn-submit:hover {
+            background: var(--accent)
+        }
+
+        .btn-submit:disabled {
+            opacity: .5;
+            cursor: not-allowed
+        }
+
+        .form-status {
+            margin-top: 16px;
+            font-size: .62rem;
+            letter-spacing: .15em;
+            text-align: center;
+            min-height: 20px
+        }
+
+        .form-status.success {
+            color: #a8c5a0
+        }
+
+        .form-status.error {
+            color: #c5a0a0
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        @media(max-width:900px) {
+            nav {
+                padding: 20px 24px
+            }
+
+            .nav-links {
+                display: none
+            }
+
+            .hero {
+                padding: 0 24px
+            }
+
+            .hero-scroll {
+                left: 24px
+            }
+
+            .section-header {
+                padding: 56px 24px 32px;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 16px
+            }
+
+            .video-grid {
+                grid-template-columns: 1fr
+            }
+
+            .cta-strip {
+                padding: 48px 24px
+            }
+
+            .footer-top {
+                grid-template-columns: 1fr;
+                padding-bottom: 40px
+            }
+
+            footer {
+                padding: 56px 24px 32px
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                align-items: flex-start
+            }
+
+            .modal {
+                padding: 40px 24px 32px
+            }
+
+            .form-row {
+                grid-template-columns: 1fr
+            }
+        }
+
+        /* ===== MOBILE GERAL ===== */
+        @media (max-width: 768px) {
+
+            body {
+                cursor: default;
+            }
+
+            /* NAV */
+            nav {
+                padding: 16px 16px;
+            }
+
+            .nav-logo {
+                font-size: 1.2rem;
+            }
+
+            /* HERO */
+            .hero {
+                padding: 0 16px;
+                align-items: center;
+                text-align: center;
+            }
+
+            .hero-title {
+                font-size: 3rem !important;
+            }
+
+            .hero-subtitle {
+                font-size: 1.4rem !important;
+            }
+
+            .hero-actions {
+                justify-content: center;
+                width: 100%;
+            }
+
+            .btn-primary,
+            .btn-secondary {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .hero-scroll {
+                display: none;
+            }
+
+            /* SECTIONS */
+            .section-header {
+                padding: 40px 16px 24px;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            /* GRID VIDEOS */
+            .video-grid {
+                grid-template-columns: 1fr !important;
+                padding: 0;
+            }
+
+            .video-card {
+                aspect-ratio: 16/11;
+            }
+
+            /* CTA */
+            .cta-strip {
+                padding: 32px 16px;
+                text-align: center;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .cta-strip-text {
+                font-size: 1.2rem;
+            }
+
+            /* FOOTER */
+            .footer-top {
+                gap: 32px;
+            }
+
+            .footer-logo {
+                font-size: 2rem;
+            }
+
+            /* MODAL (MUITO IMPORTANTE) */
+            .modal {
+                width: 100%;
+                max-width: 100%;
+                height: 100%;
+                max-height: 100%;
+                border-radius: 0;
+                padding: 28px 16px;
+            }
+
+            .modal-title {
+                font-size: 1.6rem;
+                text-align: center;
+            }
+
+            .modal-eyebrow {
+                text-align: center;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr !important;
+                gap: 10px;
+            }
+
+            .form-input,
+            .form-select,
+            .form-textarea {
+                font-size: 16px;
+                /* evita zoom no iPhone */
+            }
+
+            .btn-submit {
+                font-size: .7rem;
+                padding: 14px;
+            }
+        }
+
+        /* ===== TELAS MUITO PEQUENAS ===== */
+        @media (max-width: 400px) {
+
+            .hero-title {
+                font-size: 2.4rem !important;
+            }
+
+            .hero-subtitle {
+                font-size: 1.2rem !important;
+            }
+
+            .section-title {
+                font-size: 1.6rem;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .video-grid {
+                grid-template-columns: repeat(2, 1fr);
+                padding: 16px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .video-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ── NAVIGATION ── -->
+    <nav>
+        <a href="#" class="nav-logo">Israel <span>Mugica</span></a>
+        <ul class="nav-links">
+            <li><a href="#Carros">Carros</a></li>
+            <li><a href="#Imobiliaria">Imobiliaria</a></li>
+            <li><a href="#NICHOA">NICHOA</a></li>
+            <li><a href="#NICHOB">NICHOB</a></li>
+            <li><a href="#" class="btn-orcamento" onclick="openModal(event)">Orcamento</a></li>
+        </ul>
+    </nav>
+
+    <!-- ── HERO ── -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-grid"></div>
+        <div class="hero-content">
+            <p class="hero-eyebrow">Videos de Alta Qualidade</p>
+            <h1 class="hero-title">Israel<br><em>Mugica</em></h1>
+            <p class="hero-subtitle">Eleve o valor da sua empresa</p>
+            <div class="hero-actions">
+                <a href="#" onclick="openModal(event)" class="btn-primary">Solicitar Orcamento</a>
+                <a href="https://instagram.com/oisraelmugica" target="_blank" class="btn-secondary">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                    </svg>
+                    Ver no Instagram
+                </a>
+            </div>
+        </div>
+        <div class="hero-scroll">
+            <div class="scroll-line"></div>
+            <span class="scroll-text">Explorar portfólio</span>
+        </div>
+    </section>
+
+    <!-- ═══════════ BLOCO 1 — CASAMENTOS ═══════════ -->
+    <section id="Carros" class="video-section">
+        <div class="section-header">
+            <div>
+                <p class="section-number">01 — Nicho</p>
+                <h2 class="section-title">Car<em>ros</em></h2>
+            </div>
+            <span class="section-tag">Wedding Films</span>
+        </div>
+
+        <div class="video-grid">
+            <div class="video-card">
+                <div class="video-placeholder">
+                    <div class="play-icon">
+                        <svg viewBox="0 0 24 24">
+                            <polygon points="5,3 19,12 5,21" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="video-card-overlay">
+                    <span class="video-label">Wolskwagem</span>
+                    <span class="video-title">caro gravado...</span>
+                </div>
+            </div>
+            <div class="video-card">
+                <div class="video-placeholder">
+                    <div class="play-icon">
+                        <svg viewBox="0 0 24 24">
+                            <polygon points="5,3 19,12 5,21" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="video-card-overlay">
+                    <span class="video-label">outro trabalho</span>
+                    <span class="video-title">filmagem carro tal...</span>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-placeholder">
+                    <div class="play-icon">
+                        <svg viewBox="0 0 24 24">
+                            <polygon points="5,3 19,12 5,21" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="video-card-overlay">
+                    <span class="video-label">Wolskwagem</span>
+                    <span class="video-title">caro gravado...</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── CTA 1 ── -->
+    <div class="cta-strip">
+        <p class="cta-strip-text">
+            Não basta motor tem que ter video<br>
+            <strong>elevando seu produto ao maximo</strong>
+        </p>
+        <a href="#" onclick="openModal(event)" class="btn-primary">Solicitar Orcamento</a>
+    </div>
+
+    <!-- ═══════════ BLOCO 2 — CORPORATIVO ═══════════ -->
+    <section id="Imobiliaria" class="video-section">
+        <div class="section-header">
+            <div>
+                <p class="section-number">02 — Nicho</p>
+                <h2 class="section-title">Imo<em>biliaria</em></h2>
+            </div>
+            <span class="section-tag">Imobiliaria Films</span>
+        </div>
+
+        <div class="video-grid">
+            <div class="video-card">
+                <div class="video-placeholder">
+                    <div class="play-icon">
+                        <svg viewBox="0 0 24 24">
+                            <polygon points="5,3 19,12 5,21" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="video-card-overlay">
+                    <span class="video-label">Imobiliaria tal · 2024</span>
+                    <span class="video-title">Descrição - local</span>
+                </div>
+            </div>
+            <div class="video-card">
+                <div class="video-placeholder">
+                    <div class="play-icon">
+                        <svg viewBox="0 0 24 24">
+                            <polygon points="5,3 19,12 5,21" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="video-card-overlay">
+                    <span class="video-label">Imobiliaria · 2024</span>
+                    <span class="video-title">Descrição - local</span>
+                </div>
+            </div>
+            <div class="video-card">
+                <div class="video-placeholder">
+                    <div class="play-icon">
+                        <svg viewBox="0 0 24 24">
+                            <polygon points="5,3 19,12 5,21" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="video-card-overlay">
+                    <span class="video-label">Imobiliaria tal · 2024</span>
+                    <span class="video-title">Descrição - local</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── CTA 2 ── -->
+    <div class="cta-strip">
+        <p class="cta-strip-text">
+            <strong>Sua marca precisa de imagens</strong><br>
+            à altura do que ela representa.
+        </p>
+        <a href="#" onclick="openModal(event)" class="btn-primary">Solicitar Orcamento</a>
+    </div>
+
+    <!-- ═══════════ BLOCO 3 — NICHO ═══════════ -->
+    <section id="NICHOA" class="video-section">
+        <div class="section-header">
+            <div>
+                <h2 class="section-title">NI<em>choA</em></h2>
+            </div>
+            <span class="section-tag">Nicho A</span>
+        </div>
+
+        <div class="video-grid">
+            <div class="video-card">
+                <div class="video-placeholder">
+                    <div class="play-icon">
+                        <svg viewBox="0 0 24 24">
+                            <polygon points="5,3 19,12 5,21" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="video-card-overlay">
+                    <span class="video-label">video · 2024</span>
+                    <span class="video-title">descrição - lugar</span>
+                </div>
+            </div>
+            <div class="video-card">
+                <div class="video-placeholder">
+                    <div class="play-icon">
+                        <svg viewBox="0 0 24 24">
+                            <polygon points="5,3 19,12 5,21" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="video-card-overlay">
+                    <span class="video-label">video · 2024</span>
+                    <span class="video-title">descrição - lugar</span>
+                </div>
+            </div>
+            <div class="video-card">
+                <div class="video-placeholder">
+                    <div class="play-icon">
+                        <svg viewBox="0 0 24 24">
+                            <polygon points="5,3 19,12 5,21" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="video-card-overlay">
+                    <span class="video-label">video · 2024</span>
+                    <span class="video-title">descrição - lugar</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── CTA 3 ── -->
+    <div class="cta-strip">
+        <p class="cta-strip-text">
+            venda é atitude.<br>
+            <strong>Deixe as imagens falarem por você.</strong>
+        </p>
+        <a href="#" onclick="openModal(event)" class="btn-primary">Solicitar Orcamento</a>
+    </div>
+
+    <!-- ═══════════ BLOCO 4 — Eventos ═══════════ -->
+    <section id="NICHOB" class="video-section">
+        <div class="section-header">
+            <div>
+                <h2 class="section-title">Eve<em>ntos</em></h2>
+            </div>
+            <span class="section-tag">tecnica ou info</span>
+        </div>
+
+        <div class="video-grid">
+            <div class="video-card">
+                <div class="video-placeholder">
+                    <div class="play-icon">
+                        <svg viewBox="0 0 24 24">
+                            <polygon points="5,3 19,12 5,21" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="video-card-overlay">
+                    <span class="video-label">evento · 2024</span>
+                    <span class="video-title">descrição</span>
+                </div>
+            </div>
+            <div class="video-card">
+                <div class="video-placeholder">
+                    <div class="play-icon">
+                        <svg viewBox="0 0 24 24">
+                            <polygon points="5,3 19,12 5,21" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="video-card-overlay">
+                    <span class="video-label">evento · 2024</span>
+                    <span class="video-title">descrição</span>
+                </div>
+            </div>
+            <div class="video-card">
+                <div class="video-placeholder">
+                    <div class="play-icon">
+                        <svg viewBox="0 0 24 24">
+                            <polygon points="5,3 19,12 5,21" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="video-card-overlay">
+                    <span class="video-label">evento · 2024</span>
+                    <span class="video-title">descrição</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── CTA 4 ── -->
+    <div class="cta-strip">
+        <p class="cta-strip-text">
+            <strong>Cada projeto é único.</strong><br>
+            Vamos conversar sobre o seu.
+        </p>
+        <a href="#" onclick="openModal(event)" class="btn-primary">Solicitar Orcamento</a>
+    </div>
+
+    <!-- ── FOOTER ── -->
+    <footer>
+        <div class="footer-top">
+            <!-- COL 1 — Logo -->
+            <div>
+                <div class="footer-logo">Israel<em>Mugica</em></div>
+                <p class="footer-tagline">VideoMaker · Desde 2019</p>
+            </div>
+
+            <!-- COL 2 — Contato -->
+            <div>
+                <p class="footer-col-title">Contato</p>
+                <div class="footer-contact-item">
+                    <span class="footer-contact-label">WhatsApp</span>
+                    <a href="https://wa.me/5554996006212" target="_blank" class="footer-contact-value">
+                        +55 (54) 99600-6212
+                    </a>
+                </div>
+                <div class="footer-contact-item">
+                    <span class="footer-contact-label">E-mail</span>
+                    <a href="mailto:contato@lucasmeira.com.br" class="footer-contact-value">
+                        israel@email.com
+                    </a>
+                </div>
+                <div class="footer-contact-item">
+                    <span class="footer-contact-label">Localização</span>
+                    <span class="footer-contact-value" style="color:var(--gray-light)">Nova Prata, RS</span>
+                </div>
+            </div>
+
+            <!-- COL 3 — Redes -->
+            <div>
+                <p class="footer-col-title">Redes Sociais</p>
+                <div class="footer-social">
+                    <a href="https://instagram.com/oisraelmugica" target="_blank" class="footer-social-link">
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                        </svg>
+                        @oisraelmugica
+                    </a>
+                    <a href="https://wa.me/5554996006212" target="_blank" class="footer-social-link">
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+                        </svg>
+                        WhatsApp
+                    </a>
+                    <a href="ISRAEL@EMAIL.COM" class="footer-social-link">
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+                        </svg>
+                        israel@gmail.com
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p class="footer-copy">© 2026 Israel Mugica — Todos os direitos reservados</p>
+            <a href="#" onclick="openModal(event)" class="btn-primary">Solicitar Orcamento
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                        d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+                </svg>
+            </a>
+        </div>
+    </footer>
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal" role="dialog" aria-modal="true">
+            <button class="modal-close" id="modalClose" aria-label="Fechar">&#10005;</button>
+            <p class="modal-eyebrow">Solicitar Orcamento</p>
+            <h2 class="modal-title">Vamos criar<br><em>algo especial</em></h2>
+
+            <div class="form-group">
+                <label class="form-label" for="nome">Seu nome *</label>
+                <input class="form-input" type="text" id="nome" placeholder="Como posso te chamar?">
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label" for="femail">E-mail *</label>
+                    <input class="form-input" type="email" id="femail" placeholder="seu@email.com">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="telefone">WhatsApp</label>
+                    <input class="form-input" type="tel" id="telefone" placeholder="(51) 9 0000-0000">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="tipo_evento">Tipo de evento *</label>
+                <select class="form-select" id="tipo_evento">
+                    <option value="" disabled selected>Selecione o nicho</option>
+                    <option value="Casamento">Casamento</option>
+                    <option value="Corporativo / Produto">Corporativo / Produto</option>
+                    <option value="Fashion / Editorial">Fashion / Editorial</option>
+                    <option value="Natureza / Paisagem">Natureza / Paisagem</option>
+                    <option value="Outro">Outro</option>
+                </select>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label" for="data_evento">Data do evento *</label>
+                    <input class="form-input" type="date" id="data_evento" style="color-scheme:dark">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="local">Local / Cidade *</label>
+                    <input class="form-input" type="text" id="local" placeholder="Ex: Porto Alegre, RS">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="mensagem">Detalhes adicionais</label>
+                <textarea class="form-textarea" id="mensagem"
+                    placeholder="Conte um pouco mais sobre o que voce tem em mente..."></textarea>
+            </div>
+            <button class="btn-submit" id="btnSubmit" onclick="enviarForm()">Enviar Solicitacao</button>
+            <p class="form-status" id="formStatus"></p>
+        </div>
+    </div>
+
+    <script>
+        // ===================================================
+        //  CONFIGURACAO EMAILJS
+        //  1. Crie conta gratis em https://www.emailjs.com
+        //  2. Conecte seu Gmail em "Email Services" -> copie o Service ID
+        //  3. Crie um template em "Email Templates" com as variaveis:
+        //     {{nome}} {{from_email}} {{telefone}} {{tipo_evento}} {{data_evento}} {{local}} {{mensagem}}
+        //     Copie o Template ID
+        //  4. Va em Account > API Keys -> copie a Public Key
+        //  5. Substitua os 4 valores abaixo e salve o arquivo
+        // ===================================================
+        var EMAILJS_PUBLIC_KEY = '5YMJ0_nhRzPpJk3Nk';
+        var EMAILJS_SERVICE_ID = 'service_i47d6w5';
+        var EMAILJS_TEMPLATE_ID = 'template_hirf3ov';
+        var EMAIL_DESTINO = 'kauanzem322@gmail.com';
+
+        emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+
+        function openModal(e) {
+            if (e) e.preventDefault();
+            document.getElementById('modalOverlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('modalOverlay').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        document.getElementById('modalClose').addEventListener('click', closeModal);
+        document.getElementById('modalOverlay').addEventListener('click', function (e) {
+            if (e.target === this) closeModal();
+        });
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        function enviarForm() {
+            var btn = document.getElementById('btnSubmit');
+            var status = document.getElementById('formStatus');
+            var nome = document.getElementById('nome').value.trim();
+            var email = document.getElementById('femail').value.trim();
+            var telefone = document.getElementById('telefone').value.trim();
+            var tipoEvento = document.getElementById('tipo_evento').value;
+            var dataEvento = document.getElementById('data_evento').value;
+            var local = document.getElementById('local').value.trim();
+            var mensagem = document.getElementById('mensagem').value.trim();
+
+            if (!nome || !email || !tipoEvento || !dataEvento || !local) {
+                status.textContent = 'Preencha todos os campos obrigatorios (*)';
+                status.className = 'form-status error';
+                return;
+            }
+
+            var partes = dataEvento.split('-');
+            var dataFormatada = partes[2] + '/' + partes[1] + '/' + partes[0];
+
+            btn.disabled = true;
+            btn.textContent = 'Enviando...';
+            status.textContent = '';
+            status.className = 'form-status';
+
+            emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+                to_email: EMAIL_DESTINO,
+                nome: nome,
+                from_email: email,
+                telefone: telefone || 'Nao informado',
+                tipo_evento: tipoEvento,
+                data_evento: dataFormatada,
+                local: local,
+                mensagem: mensagem || 'Nenhuma mensagem adicional.'
+            }).then(function () {
+                status.textContent = 'Solicitacao enviada com sucesso! Retornaremos em breve.';
+                status.className = 'form-status success';
+                document.getElementById('nome').value = '';
+                document.getElementById('femail').value = '';
+                document.getElementById('telefone').value = '';
+                document.getElementById('tipo_evento').selectedIndex = 0;
+                document.getElementById('data_evento').value = '';
+                document.getElementById('local').value = '';
+                document.getElementById('mensagem').value = '';
+                setTimeout(closeModal, 3000);
+            }).catch(function (err) {
+                console.error('EmailJS error:', err);
+                status.textContent = 'Erro ao enviar. Por favor contate pelo WhatsApp.';
+                status.className = 'form-status error';
+            }).finally(function () {
+                btn.disabled = false;
+                btn.textContent = 'Enviar Solicitacao';
+            });
+        }
+    </script>
+</body>
+
+</html>
