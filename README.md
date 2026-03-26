@@ -10,13 +10,13 @@ O design é inspirado em plataformas de streaming, com foco em vídeos verticais
 
 **✨ Funcionalidades**
 
-*📱 Layout 100% responsivo (mobile-first)
-*🎥 Suporte a vídeos verticais (9:16)
-*🎨 Design moderno estilo streaming
-*⚡ Carregamento rápido e otimizado
-*📩 Formulário de contato integrado
-*🧑‍💼 Seção de portfólio profissional
-*🔗 Integração com redes sociais
+📱 Layout 100% responsivo (mobile-first)
+🎥 Suporte a vídeos verticais (9:16)
+🎨 Design moderno estilo streaming
+⚡ Carregamento rápido e otimizado
+📩 Formulário de contato integrado
+🧑‍💼 Seção de portfólio profissional
+🔗 Integração com redes sociais
 
 ---
 
