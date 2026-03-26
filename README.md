@@ -9,6 +9,7 @@ Esta landing page foi desenvolvida para videomakers que desejam apresentar seu p
 O design é inspirado em plataformas de streaming, com foco em vídeos verticais (mobile-first), garantindo uma experiência fluida em qualquer dispositivo.
 
 **✨ Funcionalidades**
+
 *📱 Layout 100% responsivo (mobile-first)
 *🎥 Suporte a vídeos verticais (9:16)
 *🎨 Design moderno estilo streaming
