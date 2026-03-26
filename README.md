@@ -8,6 +8,8 @@ Esta landing page foi desenvolvida para videomakers que desejam apresentar seu p
 
 O design é inspirado em plataformas de streaming, com foco em vídeos verticais (mobile-first), garantindo uma experiência fluida em qualquer dispositivo.
 
+---
+
 **✨ Funcionalidades**
 
 📱 Layout 100% responsivo (mobile-first)
@@ -50,11 +52,11 @@ O design é inspirado em plataformas de streaming, com foco em vídeos verticais
 <img width="1824" height="960" alt="image" src="https://github.com/user-attachments/assets/5dcbbb63-3a33-440f-aa5f-5a1a17ae127b" />
 <img width="1823" height="647" alt="image" src="https://github.com/user-attachments/assets/5f8f4401-4412-4edd-8b16-4a6e1296b85d" />
 
-
+---
 
 # 👨‍💻 Autor
 
 Desenvolvido por [Kauan Zembruski]
 
-Instagram: @kauan_zembruski
+Instagram: @kauan_zembruski        
 Email: Kauanzem322@gmail.com
